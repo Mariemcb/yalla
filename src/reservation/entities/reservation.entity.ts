@@ -1,13 +1,16 @@
 // Importez les modules nécessaires de TypeORM
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from "typeorm";
-import { Participant } from "./participant.entity";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToOne, JoinColumn } from "typeorm";
+import { Participant } from "src/participant/entities/participant.entity";
+import { Paiement } from "src/paiement/entities/paiement.entity";
+import { Event } from "src/event/entities/event.entity";
 
 // Enumération pour représenter les états possibles d'une réservation
-enum etat {
+export enum etat {
   PENDING = "en attente",
   CONFIRMED = "confirmée",
-  CANCELED = "annulée",
+  CANCELED = "declined",
 }
+
 
 @Entity()
 export class Reservation {
@@ -17,9 +20,11 @@ export class Reservation {
   @ManyToOne(() => Participant, participant => participant.reservations)
   participant: Participant; // Relation avec Participant 
 
+  @OneToOne(() => Paiement, paiement => paiement.reservation)
+  paiement: Paiement;
   
-  @Column()
-  numéro: number;
+  @ManyToOne(() => Event, event => event.reservations)
+  event: Event;
 
   @Column({ type: "timestamp" })
   date: Date;
@@ -27,7 +32,6 @@ export class Reservation {
   @Column({
     type: "enum",
     enum: etat,
-    default: etat.PENDING,
   })
   état: etat;
 
@@ -40,3 +44,4 @@ export class Reservation {
   updatedAt: Date;
 
 }
+

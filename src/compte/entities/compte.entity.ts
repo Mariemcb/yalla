@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { organisateur } from "src/organisateur/entities/organisateur.entity";
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('compte')
 export class Compte {
@@ -12,6 +13,9 @@ export class Compte {
     email : string;
     @Column({length: 50})
     password : string;
+
+    @OneToOne(() => organisateur, organisateur => organisateur.compte)
+    organisateur: organisateur;
 
 
 }

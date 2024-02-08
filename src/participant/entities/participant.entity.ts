@@ -7,6 +7,9 @@ import { Commentaire } from 'src/commentaire/entities/commentaire.entity';
 export class Participant {
   @PrimaryGeneratedColumn()
   idParticipant: number;
+  
+  @Column()
+  username: string;
 
 
   @Column()
@@ -19,10 +22,7 @@ export class Participant {
   adresse: string;
 
   @Column({ type: 'date' })
-  DN: Date;
-
-  @Column()
-  numTel: String;
+  dn: Date;
 
   
   @OneToMany(() => Reservation, reservation => reservation.participant)

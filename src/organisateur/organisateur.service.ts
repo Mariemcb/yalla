@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { CreateOrganisateurDto } from './dto/create-organisateur.dto';
 import { UpdateOrganisateurDto } from './dto/update-organisateur.dto';
 import { organisateur } from './entities/organisateur.entity';
@@ -21,16 +21,16 @@ export class OrganisateurService {
   }
 
   async create(createOrganisateurDto: CreateOrganisateurDto): Promise<organisateur> {
-    const { nom, prenom, adresse, dn, numtlf } = createOrganisateurDto;
+    const { username,nom, prenom, adresse, dn } = createOrganisateurDto;
     
     // Vous pouvez ajouter ici des validations supplémentaires si nécessaire
 
     const organisateur = this.organisateursRepository.create({
+      username,
       nom,
       prenom,
       adresse,
       dn,
-      numtlf,
     });
 
     return this.organisateursRepository.save(organisateur);
@@ -55,5 +55,13 @@ export class OrganisateurService {
 
   async findByName(nom: string): Promise<organisateur[]> {
     return this.organisateursRepository.find({ where: { nom } });
+  }
+
+  async findOneByUsername(username: string) {
+    const organisateur = await this.organisateursRepository.findOne({ where: { username } });
+    if (!organisateur) {
+      throw new NotFoundException('Participant not found');
+    }
+    return organisateur;
   }
 }

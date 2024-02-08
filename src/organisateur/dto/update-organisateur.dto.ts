@@ -16,13 +16,10 @@ export class UpdateOrganisateurDto extends PartialType(CreateOrganisateurDto) {
     @IsOptional()
     adresse?: string;
   
-    @IsDate()
     @IsOptional()
-    dn?: Date;
+    @IsString() // Use IsString decorator to ensure it is a string
+    dn: string;
   
-    @IsPhoneNumber()
-    @IsOptional()
-    numtlf?: string;
   
 
 

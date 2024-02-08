@@ -15,9 +15,6 @@ export class UpdateParticipantDto {
 
   @IsOptional()
   @IsDate()
-  readonly dateNaissance?: Date;
+  readonly dn?: Date;
 
-  @IsOptional()
-  @IsPhoneNumber('TN', { message: 'Invalid phone number' })
-  readonly numTel?: string;
 }

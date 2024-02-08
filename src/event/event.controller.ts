@@ -48,4 +48,13 @@ export class EventController {
   findByCategory(@Param('category') category: Categories): Promise<Event[]> {
     return this.eventService.findByCategory(category);
   }
+
+
+  @Get('/organisateur/:username')
+  getEventsByOrganisateurUsername(@Param('username') username: string): Promise<Event[]> {
+    return this.eventService.getEventsByOrganizerUsername(username);
+  }
+
+
+
 }

@@ -4,6 +4,10 @@ export class CreateParticipantDto {
   @IsString()
   @IsNotEmpty()
   @Length(1, 255)
+  readonly username: string;
+  @IsString()
+  @IsNotEmpty()
+  @Length(1, 255)
   readonly nom: string;
 
   @IsString()
@@ -17,9 +21,7 @@ export class CreateParticipantDto {
   readonly adresse: string;
 
   @IsDate()
-  readonly dateNaissance: Date;
+  readonly dn: Date;
 
-  @IsPhoneNumber('TN', { message: 'Invalid phone number' })
-  readonly numTel: string;
 }
 

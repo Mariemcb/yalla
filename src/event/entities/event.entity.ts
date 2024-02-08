@@ -1,8 +1,9 @@
 /* eslint-disable prettier/prettier */
 
 import { Commentaire } from "src/commentaire/entities/commentaire.entity";
+import { organisateur } from "src/organisateur/entities/organisateur.entity";
 import { Reservation } from "src/reservation/entities/reservation.entity";
-import { OneToOne, JoinColumn, Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { OneToOne, JoinColumn, Column, Entity, PrimaryGeneratedColumn, OneToMany, ManyToOne } from "typeorm";
 
 
 export enum Categories {
@@ -40,7 +41,12 @@ export class Event {
     @Column({ name: 'location' })
     location: String;
 
-    
+
+    @Column({ name: 'prix' })
+    prix: string ;
+
+  @ManyToOne(() => organisateur, organisateur => organisateur.events)
+  organisateur: organisateur;
   @OneToMany(() => Reservation, reservation => reservation.event)
   reservations: Reservation[];
 

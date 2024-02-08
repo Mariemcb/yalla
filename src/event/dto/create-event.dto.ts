@@ -32,5 +32,8 @@ export class CreateEventDto {
   @IsString()
   location:String;
 
+  @IsString()
+  prix:string;
+
 
 }

@@ -42,4 +42,23 @@ export class ParticipantService {
     const participant = await this.findOne(id);
     await this.participantRepository.remove(participant);
   }
+
+
+  async findOneByUsername(username: string) {
+    const participant = await this.participantRepository.findOne({ where: { username } });
+    if (!participant) {
+      throw new NotFoundException('Participant not found');
+    }
+    return participant;
+  }
+
+  async getParticipantIdByUsername(username: string): Promise<number | null> {
+    const participant = await this.participantRepository.findOne({ where: { username } });
+    if (!participant) {
+      throw new NotFoundException(`Participant with username '${username}' not found`);
+    }
+    return participant.idParticipant; 
+  
+}
+
 }

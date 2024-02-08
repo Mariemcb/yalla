@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException } from '@nestjs/common';
 import { ParticipantService } from './participant.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
@@ -36,4 +36,32 @@ export class ParticipantController {
   remove(@Param('id') id: string) {
     return this.participantService.remove(+id);
   }
+
+  @Get('/username/:username')
+  async findOneByUsername(@Param('username') username: string) {
+    try {
+      const participant = await this.participantService.findOneByUsername(username);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+
+  @Get(':username/id')
+  async getParticipantIdByUsername(@Param('username') username: string): Promise<number> {
+    try {
+      const participantId = await this.participantService.getParticipantIdByUsername(username);
+      return participantId;
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException(error.message);
+      }
+      throw error;
+    }
+  }
+
+  
+  
+
 }

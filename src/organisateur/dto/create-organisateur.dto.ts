@@ -1,6 +1,11 @@
 import { IsString, IsNotEmpty, IsDate, IsPhoneNumber } from 'class-validator';
 
 export class CreateOrganisateurDto {
+
+  @IsString()
+  @IsNotEmpty()
+  username: string;
+
   @IsString()
   @IsNotEmpty()
   nom: string;
@@ -13,10 +18,8 @@ export class CreateOrganisateurDto {
   @IsNotEmpty()
   adresse: string;
 
-  @IsDate()
   @IsNotEmpty()
-  dn: Date;
+  @IsString()
+  dn: string;
 
-  @IsPhoneNumber()
-  numtlf: string;
 }

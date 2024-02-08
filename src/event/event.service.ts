@@ -52,4 +52,16 @@ export class EventService {
     return this.eventRepository.find({ where: { categorie: category } });
   }
 
+
+  
+  async getEventsByOrganizerUsername(username: string): Promise<Event[]> {
+    // Implement the logic to retrieve events by organizer username
+    // This assumes there is a Many-to-One relationship between Event and Organizer entities
+    return await this.eventRepository
+      .createQueryBuilder('event')
+      .innerJoinAndSelect('event.organisateur', 'organisateur')
+      .where('organisateur.username = :username', { username })
+      .getMany();
+  }
+
 }

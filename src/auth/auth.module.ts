@@ -5,12 +5,18 @@ import { CompteService } from 'src/compte/compte.service';
 import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './local.auth';
 import { AuthController } from './auth.controller';
+import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtStrategy } from './jwt.strategy';
 
 
 
 @Module({
-  providers: [AuthService,LocalStrategy,CompteService],
-  imports :[CompteModule,PassportModule.register({ defaultStrategy: 'local' }),
+  providers: [AuthService,LocalStrategy,JwtStrategy,JwtService],
+  imports :[CompteModule,PassportModule.register({ defaultStrategy: 'jwt' }),
+  JwtModule.register({
+    secret: process.env.jwtSecret,
+    signOptions:{ expiresIn: null }
+  })
   ],
   exports: [AuthService],
   controllers: [AuthController],

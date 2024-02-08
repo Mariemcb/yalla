@@ -19,13 +19,13 @@ private compteRepository: Repository<Compte>,
 
 async addCompte(compteDto: CreateCompteDto ): Promise<Compte> {
 
-const { username, email, password } = compteDto;
+const { username, password } = compteDto;
 // Generate a salt
 const saltRounds = 10;
-const salt = await bcrypt.genSalt(saltRounds);
+const salt =  bcrypt.genSaltSync(saltRounds);
 
 // Hash the password with the salt
-const hashedPassword = await bcrypt.hash(password, salt);
+const hashedPassword = bcrypt.hashSync(password.trim(), salt);
 
 
 const newCompte = this.compteRepository.create({

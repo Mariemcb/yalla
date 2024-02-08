@@ -35,4 +35,10 @@ export class UpdateEventDto extends PartialType(CreateEventDto)  {
   @IsEnum(Categories)
   @IsOptional()
   categorie?: Categories;
+
+  @IsString()
+  @IsOptional()
+  prix?: string;
+
+
 }

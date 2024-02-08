@@ -22,6 +22,7 @@ import { OrganisateurModule } from './organisateur/organisateur.module';
 import { CommentaireModule } from './commentaire/commentaire.module';
 import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
+import { JwtService } from '@nestjs/jwt';
 
 
 @Module({
@@ -45,6 +46,6 @@ import { AuthModule } from './auth/auth.module';
     ],
     
   controllers: [AppController, ParticipantController],
-  providers: [AppService, ParticipantService,AuthService],
+  providers: [AppService, ParticipantService,AuthService,JwtService],
 })
 export class AppModule {}

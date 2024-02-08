@@ -37,4 +37,17 @@ export class OrganisateurController {
   findByName(@Param('nom') nom: string): Promise<organisateur[]> {
     return this.organisateurService.findByName(nom);
   }
+
+  @Get('username/:username')
+  async findOneByUsername(@Param('username') username: string) {
+    try {
+      const participant = await this.organisateurService.findOneByUsername(username);
+      return true;
+    } catch (error) {
+
+      return error;
+    }
+  }
+
+
 }

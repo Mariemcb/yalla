@@ -62,9 +62,3 @@ stages:
         downloadPath: '$(System.ArtifactsDirectory)'
       displayName: 'Download Build Artifacts'
 
-    - task: AzureWebApp@1
-      inputs:
-        azureSubscription: 'mycnx'
-        appName: 'myWebApp'
-        package: '$(System.ArtifactsDirectory)/frontend-dist/**/*.js'  # Chemin vers les artefacts front-end
-        deployToSlotOrASE: true
